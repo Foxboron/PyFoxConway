@@ -5,39 +5,33 @@
 from time import sleep
 
 def live_cell(x, y, board):
-    if board[x][y] == "1":
-        cell = "alive"
+    if board[x][y] == "*":
+        cell = True
     else:
-        cell = "dead"
+        cell = False
     cellcount = 0
-    if board[x-1][y-1] == "1": cellcount += 1
-    if board[x-1][y] == "1": cellcount += 1
+    if board[x-1][y-1] == "*": cellcount += 1
+    if board[x-1][y] == "*": cellcount += 1
     try:
-        if board[x-1][y+1] == "1": cellcount += 1
+        if board[x-1][y+1] == "*": cellcount += 1
     except: pass
     try:
-        if board[x][y+1] == "1": cellcount += 1
+        if board[x][y+1] == "*": cellcount += 1
     except: pass
-    if board[x][y-1] == "1": cellcount += 1
+    if board[x][y-1] == "*": cellcount += 1
     try:
-        if board[x+1][y-1] == "1": cellcount += 1
-    except: pass
-    try:
-        if board[x+1][y] == "1": cellcount += 1
+        if board[x+1][y-1] == "*": cellcount += 1
     except: pass
     try:
-        if board[x+1][y+1] == "1": cellcount += 1
+        if board[x+1][y] == "*": cellcount += 1
     except: pass
-    if cell == "alive":
-        if cellcount == 2 or cellcount == 3:
-            return True
-        else:
-            return False
-    if cell == "dead":
-        if cellcount == 3:
-            return True
-        else:
-            return False
+    try:
+        if board[x+1][y+1] == "*": cellcount += 1
+    except: pass
+
+    if cellcount == 3 or cellcount == 2 and cell:
+        return True
+    return False
 
 def conway(patter):
     pattern = patter.split()
@@ -48,11 +42,11 @@ def conway(patter):
         while True:
             if live_cell(line, cell, pattern):
                 newpatternline = list(newpattern[line])
-                newpatternline[cell] = "1"
+                newpatternline[cell] = "*"
                 newpattern[line] = "".join(newpatternline)
             else:
                 newpatternline = list(newpattern[line])
-                newpatternline[cell] = "0"
+                newpatternline[cell] = "."
                 newpattern[line] = "".join(newpatternline)
             if cell >= len(pattern[0])-1:
                 break
@@ -70,7 +64,7 @@ def main():
         new = conway(patter)
         print new
         print "\n\n"
-        sleep(1)
+        sleep(0.1)
         patter = new
 
 
