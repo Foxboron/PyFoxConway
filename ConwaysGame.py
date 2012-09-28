@@ -5,22 +5,16 @@
 from time import sleep
 
 def live_cell(x, y, board):
-    #print "Rad: ", x
-    #print "Celle: ", y
-    #print board
     if board[x][y] == "1":
         cell = "alive"
-        #print "alive"
     else:
         cell = "dead"
-        #print "dead"
     cellcount = 0
     if board[x-1][y-1] == "1": cellcount += 1
     if board[x-1][y] == "1": cellcount += 1
     try:
         if board[x-1][y+1] == "1": cellcount += 1
-    except Exception, e:
-        pass
+    except: pass
     try:
         if board[x][y+1] == "1": cellcount += 1
     except: pass
@@ -52,10 +46,6 @@ def conway(patter):
     cell = 0
     while True:
         while True:
-            #print line
-            #print cell
-            #print len(pattern[0])-1
-            #print "cell;",  cell
             if live_cell(line, cell, pattern):
                 newpatternline = list(newpattern[line])
                 newpatternline[cell] = "1"
@@ -65,16 +55,12 @@ def conway(patter):
                 newpatternline[cell] = "0"
                 newpattern[line] = "".join(newpatternline)
             if cell >= len(pattern[0])-1:
-                #print "broken cell"
                 break
             cell += 1
-        #print "line;", line
         if line >= len(pattern)-1:
             break
         line += 1
         cell = 0
-    #print line
-    #print cell
     newpattern = "\n".join(newpattern)
     return newpattern
 
@@ -89,10 +75,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
-
-
-try:
-    pass
-except Exception, e:
-    raise e
+    try:
+        main()
+    except KeyboardInterrupt:
+        exit()
