@@ -13,9 +13,7 @@ def live_cell(x, y, board):
             if (0<=(x+i)<len(board)) and (0<=(y+j)<len(board[x+i])) and ([i,j]!=[0,0]):
                 if board[x+i][y+j] == "*":
                     cellcount+=1
-    if cellcount == 3 or cellcount == 2 and cell:
-        return True
-    return False
+    return (False, True)[cellcount == 3 or cellcount == 2 and cell]
 
 def conway(patter):
     pattern = patter.split()
