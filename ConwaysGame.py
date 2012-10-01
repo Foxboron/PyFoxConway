@@ -47,7 +47,6 @@ def main():
     while True:
         new = conway(patter)
         print new
-        exit()
         print "\n\n"
         sleep(0.1)
         patter = new
